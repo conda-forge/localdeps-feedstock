@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/localdeps-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/localdeps-{{ version }}.tar.gz
   sha256: 62891d0854e6360a4545fe9991e30b0166f4e6ce6a5e9440afbaf61678093dfa
 
 build:
@@ -14,14 +14,14 @@ build:
     - localdeps = localdeps:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.4
+    - python {{ python_min }}
   run:
-    - python >=3.4
+    - python >={{ python_min }}
     - conda >=4.13
     - conda-build >=3.22
 
@@ -33,6 +33,7 @@ test:
     - localdeps --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/cshaley/localdeps
